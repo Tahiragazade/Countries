@@ -23,7 +23,7 @@ class DistrictController extends Controller
         $districtQuery=District::query();
 
         if($request->has('name')) {
-            $districtQuery->where('name', 'like', '%'.$request->get('name').'%');
+            $districtQuery->where('name', 'like', filter($request->get('name')));
         }
         if($request->has('parent_id')) {
             $districtQuery->where('parent_id', '=', $request->get('parent_id'));
@@ -45,7 +45,7 @@ class DistrictController extends Controller
         $districtQuery=District::query();
 
         if($request->has('name')) {
-            $districtQuery->where('name', 'like', '%'.$request->get('name').'%');
+            $districtQuery->where('name', 'like', filter($request->get('name')));
         }
         if($request->has('parent_id')) {
             $districtQuery->where('parent_id', '=', $request->get('parent_id'));

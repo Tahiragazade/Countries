@@ -23,7 +23,7 @@ class CityController extends Controller
         $cityQuery = City::query();
 
         if($request -> has('name')) {
-            $cityQuery->where('name', 'like', '%'.$request->get('name').'%');
+            $cityQuery->where('name', 'like', filter($request->get('name')));
         }
         if($request -> has('parent_id')) {
             $cityQuery -> where('parent_id', '=', $request->get('parent_id'));
@@ -47,7 +47,7 @@ class CityController extends Controller
         $cityQuery=City::query();
 
         if($request->has('name')) {
-            $cityQuery->where('name', 'like', '%'.$request->get('name').'%');
+            $cityQuery->where('name', 'like', filter($request->get('name')));
         }
         if($request->has('parent_id')) {
             $cityQuery->where('parent_id', '=', $request->get('parent_id'));
