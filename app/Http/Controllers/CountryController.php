@@ -27,6 +27,22 @@ class CountryController extends Controller
         $count = $countryQuery->count();
         $countries = $countryQuery->limit($limit)->offset($offset)->get();
 
+
+        return response()->json(['data' => $countries, 'total' => $count]);
+    }
+
+    public function tree(Request $request): JsonResponse
+    {
+        paginate($request, $limit, $offset);
+        $countryQuery = Country::query();
+
+        if($request->has('name')) {
+            $countryQuery->where('name', 'like', filter($request->get('name')));
+        }
+
+        $count = $countryQuery->count();
+        $countries = $countryQuery->limit($limit)->offset($offset)->get();
+
         $data = simpleTree($countries);
         return response()->json(['data' => $data, 'total' => $count]);
     }
