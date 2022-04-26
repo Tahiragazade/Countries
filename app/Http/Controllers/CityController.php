@@ -34,7 +34,7 @@ class CityController extends Controller
 
 
         foreach ($cities as $city){
-            $country=Country::query()->find($city->id);
+            $country=Country::query()->find($city->parent_id);
             $city->parent_id=$country->name;
         }
         return response()->json(['data' => $cities, 'total' => $count]);
@@ -67,7 +67,10 @@ class CityController extends Controller
     public function store(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'name'=>['required','string'],
+            'name'=>['required','string',Rule::unique('cities')->where(function ($query) use ($request) {
+                return $query->where('name', $request->name)
+                    ->where('parent_id', $request->parent_id);
+            })],
             'parent_id'=>['required','integer',Rule::exists('countries','id')]
         ]);
 
@@ -89,7 +92,10 @@ class CityController extends Controller
     public function update(Request $request): JsonResponse
     {
         $validator = Validator::make($request->all(), [
-            'name'=>['required','string'],
+            'name'=>['required','string',Rule::unique('cities')->where(function ($query) use ($request) {
+        return $query->where('name', $request->name)
+            ->where('parent_id', $request->parent_id);
+    })->ignore($request->id)],
             'parent_id'=>['required','integer',Rule::exists('countries','id')],
 
         ]);
