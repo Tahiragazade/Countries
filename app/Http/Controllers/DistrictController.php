@@ -19,7 +19,7 @@ class DistrictController extends Controller
 //    }
     public function index(Request $request): JsonResponse
     {
-        paginate($request, $limit, $offset);
+        paginate ($request, $limit, $offset);
         $districtQuery=District::query();
 
         if($request->has('name')) {
@@ -34,7 +34,7 @@ class DistrictController extends Controller
         $districts = $districtQuery->limit($limit)->offset($offset)->get();
 
         foreach ($districts as $district){
-            $city = City::query()->find($district->id);
+            $city = City::query()->find($district->parent_id);
             $district->parent_id = $city->name;
         }
         return response()->json(['data' => $districts, 'total' => $count]);
@@ -59,7 +59,7 @@ class DistrictController extends Controller
         $cities = City::get();
 
 
-        $data = treeForTreeTable( $countries, $cities, $districts);
+        $data = treeForThreeTable( $countries, $cities, $districts);
         clearEmptyChildren($data);
         return response()->json(['data' => $data, 'total' => $count]);
     }
@@ -115,7 +115,7 @@ class DistrictController extends Controller
     }
     public function delete($id)
     {
-        $district=checkIfExist('District','id',$id);
+        $district=checkIfExist('District','id', $id);
         if($district==0){
             return notFoundError($id);
         }

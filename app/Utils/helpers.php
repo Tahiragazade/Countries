@@ -13,7 +13,7 @@ function validationError($errors){
 function notFoundError($id){
     return response()->json([
         'message' => 'Məlumat Tapılmadı',
-        'code'=>404,
+        'code' => 404,
         'error' => $id .' uyğun nəticə tapılmadı',
     ], 404);
 }
@@ -27,7 +27,7 @@ function createSuccess($data){
 function updateSuccess($data){
     return response()->json([
         'message' => 'Məlumat Uğurla Dəyişdirildi',
-        'code'=>200,
+        'code' => 200,
         'data' => $data ,
     ], 200);
 }
@@ -44,14 +44,14 @@ function checkIfExist($table,$column,$data){
 function notDeleteError(){
     return response()->json([
         'message' => 'Məlumat Silinə Bilməz',
-        'code'=>403,
+        'code' => 403,
         'data' => 'Bu id - ə bağlı başqa məlumatlar var' ,
     ], 403);
 }
 function deleted(){
     return response()->json([
         'message' => 'Məlumat Silindi',
-        'code'=>200,
+        'code' => 200,
         'data' => 'Məlumat Uğurla Silindi' ,
     ], 200);
 }
@@ -98,7 +98,7 @@ function generateTree($datas,  $parent) {
     return $tree;
 }
 
-function treeForTreeTable($first_table,$second_table,$third_table){
+function treeForThreeTable($first_table,$second_table,$third_table){
     $tree = [];
     foreach ($first_table as $first){
         $tree[] = array(
@@ -130,7 +130,7 @@ function generateSecondTree($datas, $parent,$third_table) {
 
 function clearEmptyChildren(&$tree)
 {
-    foreach ($tree as $key =>$value )
+    foreach ($tree as $key  => $value )
     {
         if(empty($value['children']))
         {
