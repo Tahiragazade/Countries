@@ -29,9 +29,8 @@ class DistrictController extends Controller
             $districtQuery->where('parent_id', '=', $request->get('parent_id'));
         }
 
-
         $count = count($districtQuery->get());
-        $districts = $districtQuery->limit($limit)->offset($offset)->get();
+        $districts = $districtQuery->limit($request->get('limit'))->offset($request->get('offset'))->get();
 
         foreach ($districts as $district){
             $city = City::query()->find($district->parent_id);
@@ -51,13 +50,11 @@ class DistrictController extends Controller
             $districtQuery->where('parent_id', '=', $request->get('parent_id'));
         }
 
-
             $count = count($districtQuery->get());
-            $districts = $districtQuery->limit($limit)->offset($offset)->get();
+            $districts = $districtQuery->limit($request->get('limit'))->offset($request->get('offset'))->get();
 
         $countries = Country::get();
         $cities = City::get();
-
 
         $data = treeForThreeTable( $countries, $cities, $districts);
         clearEmptyChildren($data);
@@ -77,7 +74,6 @@ class DistrictController extends Controller
         {
             return validationError($validator->errors());
         }
-
 
         $model= new District($request->only([
             'name',

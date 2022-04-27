@@ -18,6 +18,9 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'api'], function () use ($router) {
+
+//    $router->group(['middleware' => 'request'], function () use ($router) {
+
     $router->get('country/tree', 'CountryController@tree');
     $router->get('city/tree', 'CityController@tree');
     $router->get('district/tree', 'DistrictController@tree');
@@ -43,4 +46,5 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
 
 
+//    });
 });

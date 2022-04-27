@@ -25,7 +25,7 @@ class CountryController extends Controller
         }
 
         $count = $countryQuery->count();
-        $countries = $countryQuery->limit($limit)->offset($offset)->get();
+        $countries = $countryQuery->limit($request->get('limit'))->offset($request->get('offset'))->get();
 
 
         return response()->json(['data' => $countries, 'total' => $count]);
@@ -41,7 +41,7 @@ class CountryController extends Controller
         }
 
         $count = $countryQuery->count();
-        $countries = $countryQuery->limit($limit)->offset($offset)->get();
+        $countries = $countryQuery->limit($request->get('limit'))->offset($request->get('offset'))->get();
 
         $data = simpleTree($countries);
         return response()->json(['data' => $data, 'total' => $count]);

@@ -30,7 +30,7 @@ class CityController extends Controller
         }
 
         $count = count($cityQuery->get());
-        $cities = $cityQuery->limit($limit)->offset($offset)->get();
+        $cities = $cityQuery->limit($request->get('limit'))->offset($request->get('offset'))->get();
 
 
         foreach ($cities as $city){
@@ -54,7 +54,7 @@ class CityController extends Controller
         }
 
             $count = count($cityQuery->get());
-            $cities = $cityQuery->limit($limit)->offset($offset)->get();
+            $cities = $cityQuery->limit($request->get('limit'))->offset($request->get('offset'))->get();
 
         $countries=Country::get();
 
